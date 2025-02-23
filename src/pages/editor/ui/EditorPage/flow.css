@@ -370,6 +370,7 @@ svg.react-flow__connectionline {
 }
 
 .react-flow__attribution {
+  display: none;
   font-size: 10px;
   background: var(
     --xy-attribution-background-color,
