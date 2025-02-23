@@ -1,7 +1,7 @@
 import { Background, Controls, ReactFlow } from '@xyflow/react';
 import './flow.css';
 
-export default function Page() {
+export const EditorPage = () => {
   return (
     <>
       <ReactFlow width={1000} height={1000}>
@@ -10,4 +10,4 @@ export default function Page() {
       </ReactFlow>
     </>
   );
-}
+};
