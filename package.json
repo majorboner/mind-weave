@@ -41,6 +41,7 @@
     "typescript-eslint": "^8.24.1"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.5.1",
     "@xyflow/react": "^12.4.3",
     "next": "^15.1.7",
     "react": "^19.0.0",
