@@ -1,32 +1,32 @@
 // eslint.config.js
-import globals from "globals";
-import pluginJs from "@eslint/js";
-import tseslint from "@typescript-eslint/eslint-plugin";
-import parserTs from "@typescript-eslint/parser";
-import pluginReact from "eslint-plugin-react";
-import pluginReactHooks from "eslint-plugin-react-hooks";
-import pluginReactRefresh from "eslint-plugin-react-refresh";
+import globals from 'globals';
+import pluginJs from '@eslint/js';
+import tseslint from '@typescript-eslint/eslint-plugin';
+import parserTs from '@typescript-eslint/parser';
+import pluginReact from 'eslint-plugin-react';
+import pluginReactHooks from 'eslint-plugin-react-hooks';
+import pluginReactRefresh from 'eslint-plugin-react-refresh';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   {
-    files: ["**/*.{ts,tsx}"],
+    files: ['**/*.{ts,tsx}'],
     languageOptions: {
       parser: parserTs,
       ecmaVersion: 2020,
-      sourceType: "module",
+      sourceType: 'module',
       globals: globals.browser,
     },
     settings: {
       react: {
-        version: "detect",
+        version: 'detect',
       },
     },
     plugins: {
-      "@typescript-eslint": tseslint,
+      '@typescript-eslint': tseslint,
       react: pluginReact,
-      "react-hooks": pluginReactHooks,
-      "react-refresh": pluginReactRefresh,
+      'react-hooks': pluginReactHooks,
+      'react-refresh': pluginReactRefresh,
     },
     rules: {
       // Общие правила ESLint
@@ -45,7 +45,7 @@ export default [
       ...pluginReactRefresh.configs.recommended.rules,
 
       // Дополнительные правила
-      "react/react-in-jsx-scope": "off",
+      'react/react-in-jsx-scope': 'off',
     },
   },
 ];
