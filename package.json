@@ -5,12 +5,12 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev:vite": "vite",
-    "build:vite": "vite build",
-    "preview:vite": "vite preview",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
     "prettier": "prettier . --write",
     "prepare": "husky",
+    "lint:next": "next lint",
     "lint:ts": "eslint \"**/*.{ts,tsx}\"",
     "lint:ts:fix": "eslint \"**/*.{ts,tsx}\" --fix"
   },

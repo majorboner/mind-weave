@@ -1,4 +1,3 @@
-// eslint.config.js
 import globals from 'globals';
 import pluginJs from '@eslint/js';
 import tseslint from '@typescript-eslint/eslint-plugin';
@@ -10,7 +9,7 @@ import pluginReactRefresh from 'eslint-plugin-react-refresh';
 /** @type {import('eslint').Linter.Config[]} */
 export default [
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ['src/**/*.{ts,tsx}', 'pages/**/*.{ts,tsx}'],
     languageOptions: {
       parser: parserTs,
       ecmaVersion: 2020,
@@ -29,22 +28,11 @@ export default [
       'react-refresh': pluginReactRefresh,
     },
     rules: {
-      // Общие правила ESLint
       ...pluginJs.configs.recommended.rules,
-
-      // Правила TypeScript ESLint
       ...tseslint.configs.recommended.rules,
-
-      // React
       ...pluginReact.configs.flat.recommended.rules,
-
-      // React Hooks
       ...pluginReactHooks.configs.recommended.rules,
-
-      // React Refresh
       ...pluginReactRefresh.configs.recommended.rules,
-
-      // Дополнительные правила
       'react/react-in-jsx-scope': 'off',
     },
   },
