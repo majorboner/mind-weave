@@ -9,7 +9,7 @@
     "dev:vite": "vite",
     "build:vite": "vite build",
     "preview:vite": "vite preview",
-    "prettier": "pnpm exec prettier . --write",
+    "prettier": "prettier . --write",
     "prepare": "husky",
     "lint:ts": "eslint \"**/*.{ts,tsx}\"",
     "lint:ts:fix": "eslint \"**/*.{ts,tsx}\" --fix"
