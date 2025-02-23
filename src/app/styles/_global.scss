@@ -1,0 +1,19 @@
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  height: auto;
+  display: flex;
+
+  @supports (-webkit-touch-callout: none) {
+    // TODO: test it on iphone
+    min-height: -webkit-fill-available;
+  }
+}
+
+#__next {
+  flex: 1;
+  min-height: 0;
+}
