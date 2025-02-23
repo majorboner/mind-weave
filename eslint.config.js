@@ -5,6 +5,7 @@ import parserTs from '@typescript-eslint/parser';
 import pluginReact from 'eslint-plugin-react';
 import pluginReactHooks from 'eslint-plugin-react-hooks';
 import pluginReactRefresh from 'eslint-plugin-react-refresh';
+import pluginNext from '@next/eslint-plugin-next';
 
 /** @type {import('eslint').Linter.Config[]} */
 export default [
@@ -26,6 +27,7 @@ export default [
       react: pluginReact,
       'react-hooks': pluginReactHooks,
       'react-refresh': pluginReactRefresh,
+      '@next/next': pluginNext,
     },
     rules: {
       ...pluginJs.configs.recommended.rules,
@@ -33,6 +35,7 @@ export default [
       ...pluginReact.configs.flat.recommended.rules,
       ...pluginReactHooks.configs.recommended.rules,
       ...pluginReactRefresh.configs.recommended.rules,
+      ...pluginNext.configs.recommended.rules,
       'react/react-in-jsx-scope': 'off',
     },
   },
