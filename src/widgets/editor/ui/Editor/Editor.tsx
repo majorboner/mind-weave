@@ -1,7 +1,4 @@
 import {
-  addEdge,
-  applyEdgeChanges,
-  applyNodeChanges,
   Background,
   Connection,
   Controls,
@@ -11,36 +8,24 @@ import {
   NodeChange,
   ReactFlow,
 } from '@xyflow/react';
-import { useState, useCallback } from 'react';
 import './flow.css';
-
-const initialNodes: Node[] = [
-  { id: '1', position: { x: 0, y: 0 }, data: { label: '1' } },
-  { id: '2', position: { x: 0, y: 100 }, data: { label: '2' } },
-];
-
-const initialEdges: Edge[] = [];
+import { changeNode, changeEdge, connectNodes } from '../../model/slice';
+import { useDispatch, useSelector } from 'react-redux';
+import { getNodes } from '../../model/selectors/getNodes';
+import { getEdges } from '../../model/selectors/getEdges';
 
 export const Editor = () => {
-  const [nodes, setNodes] = useState<Node[]>(initialNodes);
-  const [edges, setEdges] = useState<Edge[]>(initialEdges);
+  const dispatch = useDispatch();
+  const nodes = useSelector(getNodes);
+  const edges = useSelector(getEdges);
 
-  const onNodesChange = useCallback(
-    (changes: NodeChange<Node>[]) =>
-      setNodes((nds: Node[]) => applyNodeChanges(changes, nds)),
-    [],
-  );
+  const onNodesChange = (changes: NodeChange<Node>[]) =>
+    dispatch(changeNode(changes));
 
-  const onEdgesChange = useCallback(
-    (changes: EdgeChange<Edge>[]) =>
-      setEdges((eds: Edge[]) => applyEdgeChanges(changes, eds)),
-    [],
-  );
+  const onEdgesChange = (changes: EdgeChange<Edge>[]) =>
+    dispatch(changeEdge(changes));
 
-  const onConnect = useCallback(
-    (params: Connection) => setEdges((eds) => addEdge(params, eds)),
-    [],
-  );
+  const onConnect = (params: Connection) => dispatch(connectNodes(params));
 
   return (
     <ReactFlow
