@@ -1,9 +1,9 @@
-import { RootState } from '@/app/providers/StoreProvider/model/rootStore';
 import { useDispatch, useSelector } from 'react-redux';
 import { decrement, increment } from '../../model/slice';
+import { getCounterValue } from '../../model/selectors/getCounterValue';
 
 export const Counter = () => {
-  const count = useSelector((state: RootState) => state.counter.value);
+  const count = useSelector(getCounterValue);
   const dispatch = useDispatch();
 
   return (
