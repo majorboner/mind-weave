@@ -22,6 +22,12 @@ const initialState: EditorState = {
   nodes: [
     { id: '1', position: { x: 0, y: 0 }, data: { label: '1' } },
     { id: '2', position: { x: 0, y: 100 }, data: { label: '2' } },
+    {
+      id: '2',
+      position: { x: 0, y: 100 },
+      data: { label: '2' },
+      type: 'baseNode',
+    },
   ],
   edges: [],
   isEdgeReconnectSuccessful: false,

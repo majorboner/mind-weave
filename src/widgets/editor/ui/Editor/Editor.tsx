@@ -21,11 +21,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getNodes } from '../../model/selectors/getNodes';
 import { getEdges } from '../../model/selectors/getEdges';
 import cls from './Editor.module.scss';
+import { BaseNode } from '../BaseNode/BaseNode';
+import { useMemo } from 'react';
 
 export const Editor = () => {
   const dispatch = useDispatch();
   const nodes = useSelector(getNodes);
   const edges = useSelector(getEdges);
+
+  const nodeTypes = useMemo(() => ({ baseNode: BaseNode }), []);
 
   const onNodesChange: OnNodesChange = (changes) =>
     dispatch(changeNode(changes));
@@ -62,6 +66,7 @@ export const Editor = () => {
     <>
       <DebugPanel />
       <ReactFlow
+        nodeTypes={nodeTypes}
         nodes={nodes}
         onNodesChange={onNodesChange}
         edges={edges}
