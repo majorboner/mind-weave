@@ -49,8 +49,8 @@ export const Editor = () => {
     dispatch(reconnectEdge({ oldEdge, newConnection }));
   };
 
-  const onReconnectEnd = (event: MouseEvent | TouchEvent, edge: Edge) => {
-    dispatch(afterReconnect({ event, edge }));
+  const onReconnectEnd = (_: MouseEvent | TouchEvent, edge: Edge) => {
+    dispatch(afterReconnect({ edge }));
   };
 
   const DebugPanel = () => (

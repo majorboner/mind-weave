@@ -65,10 +65,7 @@ export const editorSlice = createSlice({
         state.edges,
       );
     },
-    afterReconnect: (
-      state,
-      action: PayloadAction<{ event: MouseEvent | TouchEvent; edge: Edge }>,
-    ) => {
+    afterReconnect: (state, action: PayloadAction<{ edge: Edge }>) => {
       if (state.isEdgeReconnectSuccessful) {
         return;
       }
