@@ -7,10 +7,11 @@ import { loginByUsername } from '../../model/services/loginByUsername';
 import { setUsername, setPassword } from '../../model/slice';
 import { TextInput } from '@/shared/ui/TextInput/TextInput';
 import cls from './LoginForm.module.scss';
+import { logout } from '@/entities/User';
 
 export const LoginForm = () => {
   const userData = useSelector(getUserData);
-  const { password, username, isLoading } = useSelector(getLoginState);
+  const { password, username, isLoading, error } = useSelector(getLoginState);
   const dispatch: AppDispatch = useDispatch();
 
   const onChangeUsername = (value: string) => {
@@ -25,6 +26,10 @@ export const LoginForm = () => {
     await dispatch(loginByUsername({ password, username }));
   };
 
+  const onLogoutClick = () => {
+    dispatch(logout());
+  };
+
   return (
     <div className={cls.LoginForm}>
       <p>
@@ -34,9 +39,19 @@ export const LoginForm = () => {
             ? `You are logged as ${userData.username}`
             : 'You are not logged'}
       </p>
-      <TextInput value={username} onChange={onChangeUsername} />
-      <TextInput value={password} onChange={onChangePassword} type="password" />
-      <Button onClick={onLoginClick}>Login</Button>
+      {error && <p>{error}</p>}
+      {!userData && (
+        <>
+          <TextInput value={username} onChange={onChangeUsername} />
+          <TextInput
+            value={password}
+            onChange={onChangePassword}
+            type="password"
+          />
+          <Button onClick={onLoginClick}>Login</Button>
+        </>
+      )}
+      {userData && <Button onClick={onLogoutClick}>Logout</Button>}
     </div>
   );
 };

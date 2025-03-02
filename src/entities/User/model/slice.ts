@@ -13,9 +13,13 @@ export const userSlice = createSlice({
       ...state,
       userData: action.payload,
     }),
+    logout: (state) => ({
+      ...state,
+      userData: undefined,
+    }),
   },
 });
 
-export const { setUserData } = userSlice.actions;
+export const { setUserData, logout } = userSlice.actions;
 
 export default userSlice.reducer;

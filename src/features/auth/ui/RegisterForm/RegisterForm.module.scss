@@ -1,0 +1,10 @@
+.RegisterForm {
+  max-width: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: var(--secondary-color);
+  padding: 32px;
+  border-radius: 16px;
+}
