@@ -9,14 +9,12 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    setUserData: (state, action: PayloadAction<User>) => ({
-      ...state,
-      userData: action.payload,
-    }),
-    logout: (state) => ({
-      ...state,
-      userData: undefined,
-    }),
+    setUserData: (state, action: PayloadAction<User>) => {
+      state.userData = action.payload;
+    },
+    logout: (state) => {
+      state.userData = undefined;
+    },
   },
 });
 

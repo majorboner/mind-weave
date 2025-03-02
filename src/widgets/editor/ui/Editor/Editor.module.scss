@@ -9,3 +9,17 @@
   padding: 4px 8px;
   border: 1px solid gray;
 }
+
+.toolbar {
+  position: absolute;
+  background: var(--secondary-color);
+  padding: 8px;
+  border-radius: 8px;
+  bottom: 16px;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  width: fit-content;
+  display: flex;
+  gap: 8px;
+}

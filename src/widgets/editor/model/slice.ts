@@ -10,6 +10,7 @@ import {
   NodeChange,
   reconnectEdge as reconnectEdgeFlow,
 } from '@xyflow/react';
+import { v4 as uuidv4 } from 'uuid';
 
 export interface EditorState {
   nodes: Node[];
@@ -36,53 +37,52 @@ export const editorSlice = createSlice({
   name: 'editor',
   initialState,
   reducers: {
+    addNode: (state) => {
+      const newNode: Node = {
+        id: uuidv4(),
+        data: { label: 'new' },
+        position: { x: 0, y: 0 },
+      };
+      state.nodes.push(newNode);
+    },
     changeNode: (state, action: PayloadAction<NodeChange[]>) => {
-      return { ...state, nodes: applyNodeChanges(action.payload, state.nodes) };
+      state.nodes = applyNodeChanges(action.payload, state.nodes);
     },
     changeEdge: (state, action: PayloadAction<EdgeChange[]>) => {
-      return { ...state, edges: applyEdgeChanges(action.payload, state.edges) };
+      state.edges = applyEdgeChanges(action.payload, state.edges);
     },
     createEdge: (state, action: PayloadAction<Connection>) => {
-      return { ...state, edges: addEdge(action.payload, state.edges) };
+      state.edges = addEdge(action.payload, state.edges);
     },
     reconnectEdge: (
       state,
       action: PayloadAction<{ oldEdge: Edge; newConnection: Connection }>,
     ) => {
-      return {
-        ...state,
-        isEdgeReconnectSuccessful: true,
-        edges: reconnectEdgeFlow(
-          action.payload.oldEdge,
-          action.payload.newConnection,
-          state.edges,
-        ),
-      };
+      state.isEdgeReconnectSuccessful = true;
+      state.edges = reconnectEdgeFlow(
+        action.payload.oldEdge,
+        action.payload.newConnection,
+        state.edges,
+      );
     },
     afterReconnect: (
       state,
       action: PayloadAction<{ event: MouseEvent | TouchEvent; edge: Edge }>,
     ) => {
       if (state.isEdgeReconnectSuccessful) {
-        return state;
+        return;
       }
-
-      return {
-        ...state,
-        isEdgeReconnectSuccessful: true,
-        edges: state.edges.filter((e) => e.id !== action.payload.edge.id),
-      };
+      state.isEdgeReconnectSuccessful = true;
+      state.edges = state.edges.filter((e) => e.id !== action.payload.edge.id);
     },
     setIsEdgeReconnectSuccessful: (state, action: PayloadAction<boolean>) => {
-      return {
-        ...state,
-        isEdgeReconnectSuccessful: action.payload,
-      };
+      state.isEdgeReconnectSuccessful = action.payload;
     },
   },
 });
 
 export const {
+  addNode,
   changeNode,
   changeEdge,
   createEdge,

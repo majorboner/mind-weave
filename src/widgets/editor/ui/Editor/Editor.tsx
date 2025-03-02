@@ -16,6 +16,7 @@ import {
   setIsEdgeReconnectSuccessful,
   reconnectEdge,
   afterReconnect,
+  addNode,
 } from '../../model/slice';
 import { useDispatch, useSelector } from 'react-redux';
 import { getNodes } from '../../model/selectors/getNodes';
@@ -23,6 +24,7 @@ import { getEdges } from '../../model/selectors/getEdges';
 import cls from './Editor.module.scss';
 import { BaseNode } from '../BaseNode/BaseNode';
 import { useMemo } from 'react';
+import { Button } from '@/shared/ui/Button/Button';
 
 export const Editor = () => {
   const dispatch = useDispatch();
@@ -62,6 +64,13 @@ export const Editor = () => {
     </div>
   );
 
+  const Toolbar = () => (
+    <div className={cls.toolbar}>
+      <Button onClick={() => dispatch(addNode())}>New node</Button>
+      <Button onClick={() => console.log(edges)}>Remove node</Button>
+    </div>
+  );
+
   return (
     <>
       <DebugPanel />
@@ -80,6 +89,7 @@ export const Editor = () => {
         <Background />
         <Controls />
       </ReactFlow>
+      <Toolbar />
     </>
   );
 };
