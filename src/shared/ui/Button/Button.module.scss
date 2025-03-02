@@ -4,4 +4,7 @@
   border-radius: 16px;
   padding: 4px 8px;
   width: fit-content;
+  &.disabled {
+    background: var(--secondary-color);
+  }
 }

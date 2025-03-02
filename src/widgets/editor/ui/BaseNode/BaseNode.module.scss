@@ -3,5 +3,9 @@
   border: 1px solid #eee;
   padding: 8px;
   border-radius: 5px;
-  background: white;
+  background: var(--secondary-color);
+
+  &.active {
+    border: 1px solid #000;
+  }
 }

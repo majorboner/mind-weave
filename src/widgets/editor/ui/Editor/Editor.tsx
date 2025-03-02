@@ -18,20 +18,25 @@ import {
   afterReconnect,
   addNode,
   removeSelectedNode,
+  saveToLocalStorage,
+  loadFromLocalStorage,
 } from '../../model/slice';
 import { useDispatch, useSelector } from 'react-redux';
-import { getNodes } from '../../model/selectors/getNodes';
-import { getEdges } from '../../model/selectors/getEdges';
 import cls from './Editor.module.scss';
 import { BaseNode } from '../BaseNode/BaseNode';
 import { Button } from '@/shared/ui/Button/Button';
+import { getEditorState } from '../../model/selectors/getEditorState';
+import { saveMapToServer } from '../../model/services/saveMapToSever';
+import { AppDispatch } from '@/app/providers/StoreProvider/model/types';
+import { loadMapFromServer } from '../../model/services/loadMapFromServer';
+import { getSelectedNode } from '../../model/selectors/getSelectedNode';
 
 const nodeTypes = { baseNode: BaseNode };
 
 export const Editor = () => {
-  const dispatch = useDispatch();
-  const nodes = useSelector(getNodes);
-  const edges = useSelector(getEdges);
+  const dispatch: AppDispatch = useDispatch();
+  const { edges, nodes } = useSelector(getEditorState);
+  const selectedNode = useSelector(getSelectedNode);
 
   const onNodesChange: OnNodesChange = (changes) =>
     dispatch(changeNode(changes));
@@ -55,20 +60,34 @@ export const Editor = () => {
 
   const DebugPanel = () => (
     <div className={cls.debugPanel}>
-      <button onClick={() => console.log(nodes)} className={cls.button}>
-        Print nodes
-      </button>
-      <button onClick={() => console.log(edges)} className={cls.button}>
-        Print edges
-      </button>
+      <Button onClick={() => console.log(nodes)}>Print nodes</Button>
+      <Button onClick={() => console.log(edges)}>Print edges</Button>
+      <Button onClick={() => dispatch(saveToLocalStorage())}>
+        Save to local storage
+      </Button>
+      <Button onClick={() => dispatch(loadFromLocalStorage())}>
+        Load from local storage
+      </Button>
+      <Button onClick={() => dispatch(saveMapToServer())}>
+        Save to server
+      </Button>
+      <Button onClick={() => dispatch(loadMapFromServer())}>
+        Load from server
+      </Button>
     </div>
   );
 
   const Toolbar = () => (
     <div className={cls.toolbar}>
       <Button onClick={() => dispatch(addNode())}>New node</Button>
-      <Button onClick={() => dispatch(removeSelectedNode())}>
+      <Button
+        disabled={selectedNode == null}
+        onClick={() => dispatch(removeSelectedNode())}
+      >
         Remove selected node
+      </Button>
+      <Button onClick={() => dispatch(removeSelectedNode())}>
+        {selectedNode?.id}
       </Button>
     </div>
   );

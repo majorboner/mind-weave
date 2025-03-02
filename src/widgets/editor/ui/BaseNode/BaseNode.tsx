@@ -1,32 +1,30 @@
-import { Handle, Position } from '@xyflow/react';
-import { ChangeEvent, useCallback } from 'react';
+import { Handle, Node, NodeProps, NodeResizer, Position } from '@xyflow/react';
+import { useCallback } from 'react';
 import cls from './BaseNode.module.scss';
 import { useDispatch } from 'react-redux';
-import { setSelectedNode } from '../../model/slice';
+import { changeNodeLabel } from '../../model/slice';
+import { classNames } from '@/shared/lib/helpers/classNames';
+import { TextInput } from '@/shared/ui/TextInput/TextInput';
 
-interface BaseNodeProps {
-  id: string;
-  data: { label: string };
-  isConnectable: boolean;
-}
+type BaseNodeProps = Node<{ label: string }, 'tests'>;
 
 const left = { left: 0 };
 const right = { left: '100%' };
 
-export const BaseNode = (props: BaseNodeProps) => {
-  const { id, data, isConnectable } = props;
+export const BaseNode = (props: NodeProps<BaseNodeProps>) => {
+  const { data, isConnectable, selected } = props;
   const dispatch = useDispatch();
 
-  const onChange = useCallback((evt: ChangeEvent<HTMLInputElement>) => {
-    console.log(evt.target.value);
-  }, []);
-
-  const onClickNode = useCallback(() => {
-    dispatch(setSelectedNode(id));
-  }, [dispatch, id]);
+  const onChangeLabel = useCallback(
+    (value: string) => {
+      dispatch(changeNodeLabel(value));
+    },
+    [dispatch],
+  );
 
   return (
-    <div className={cls.BaseNode} onClick={onClickNode}>
+    <div className={classNames(cls.BaseNode, { [cls.active]: selected })}>
+      <NodeResizer minWidth={100} minHeight={30} />
       <Handle
         type="target"
         id="q"
@@ -48,11 +46,11 @@ export const BaseNode = (props: BaseNodeProps) => {
         isConnectable={isConnectable}
       />
       <div>
-        <input
+        <TextInput
           id="text"
           name="text"
           value={data.label}
-          onChange={onChange}
+          onChange={onChangeLabel}
           className="nodrag"
         />
       </div>
