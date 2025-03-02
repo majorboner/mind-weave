@@ -15,21 +15,14 @@ import { v4 as uuidv4 } from 'uuid';
 export interface EditorState {
   nodes: Node[];
   edges: Edge[];
+  selectedNodeId?: string;
   isEdgeReconnectSuccessful: boolean;
 }
 
 const initialState: EditorState = {
-  nodes: [
-    { id: '1', position: { x: 0, y: 0 }, data: { label: '1' } },
-    { id: '2', position: { x: 0, y: 100 }, data: { label: '2' } },
-    {
-      id: '2',
-      position: { x: 0, y: 100 },
-      data: { label: '2' },
-      type: 'baseNode',
-    },
-  ],
+  nodes: [],
   edges: [],
+  selectedNodeId: undefined,
   isEdgeReconnectSuccessful: false,
 };
 
@@ -42,8 +35,14 @@ export const editorSlice = createSlice({
         id: uuidv4(),
         data: { label: 'new' },
         position: { x: 0, y: 0 },
+        type: 'baseNode',
       };
       state.nodes.push(newNode);
+    },
+    removeSelectedNode: (state) => {
+      state.nodes = state.nodes.filter(
+        (node) => node.id !== state.selectedNodeId,
+      );
     },
     changeNode: (state, action: PayloadAction<NodeChange[]>) => {
       state.nodes = applyNodeChanges(action.payload, state.nodes);
@@ -75,17 +74,22 @@ export const editorSlice = createSlice({
     setIsEdgeReconnectSuccessful: (state, action: PayloadAction<boolean>) => {
       state.isEdgeReconnectSuccessful = action.payload;
     },
+    setSelectedNode: (state, action: PayloadAction<string>) => {
+      state.selectedNodeId = action.payload;
+    },
   },
 });
 
 export const {
   addNode,
+  removeSelectedNode,
   changeNode,
   changeEdge,
   createEdge,
   reconnectEdge,
   afterReconnect,
   setIsEdgeReconnectSuccessful,
+  setSelectedNode,
 } = editorSlice.actions;
 
 export default editorSlice.reducer;

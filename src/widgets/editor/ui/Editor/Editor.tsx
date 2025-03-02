@@ -17,6 +17,7 @@ import {
   reconnectEdge,
   afterReconnect,
   addNode,
+  removeSelectedNode,
 } from '../../model/slice';
 import { useDispatch, useSelector } from 'react-redux';
 import { getNodes } from '../../model/selectors/getNodes';
@@ -67,7 +68,9 @@ export const Editor = () => {
   const Toolbar = () => (
     <div className={cls.toolbar}>
       <Button onClick={() => dispatch(addNode())}>New node</Button>
-      <Button onClick={() => console.log(edges)}>Remove node</Button>
+      <Button onClick={() => dispatch(removeSelectedNode())}>
+        Remove selected node
+      </Button>
     </div>
   );
 

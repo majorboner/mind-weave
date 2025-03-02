@@ -1,8 +1,11 @@
 import { Handle, Position } from '@xyflow/react';
-import { ChangeEvent, useCallback, useEffect } from 'react';
+import { ChangeEvent, useCallback } from 'react';
 import cls from './BaseNode.module.scss';
+import { useDispatch } from 'react-redux';
+import { setSelectedNode } from '../../model/slice';
 
 interface BaseNodeProps {
+  id: string;
   data: { label: string };
   isConnectable: boolean;
 }
@@ -11,18 +14,19 @@ const left = { left: 0 };
 const right = { left: '100%' };
 
 export const BaseNode = (props: BaseNodeProps) => {
-  const { data, isConnectable } = props;
+  const { id, data, isConnectable } = props;
+  const dispatch = useDispatch();
 
   const onChange = useCallback((evt: ChangeEvent<HTMLInputElement>) => {
     console.log(evt.target.value);
   }, []);
 
-  useEffect(() => {
-    console.log('data', data);
-  }, [data]);
+  const onClickNode = useCallback(() => {
+    dispatch(setSelectedNode(id));
+  }, [dispatch, id]);
 
   return (
-    <div className={cls.BaseNode}>
+    <div className={cls.BaseNode} onClick={onClickNode}>
       <Handle
         type="target"
         id="q"
