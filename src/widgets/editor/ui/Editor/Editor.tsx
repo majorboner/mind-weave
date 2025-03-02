@@ -24,15 +24,14 @@ import { getNodes } from '../../model/selectors/getNodes';
 import { getEdges } from '../../model/selectors/getEdges';
 import cls from './Editor.module.scss';
 import { BaseNode } from '../BaseNode/BaseNode';
-import { useMemo } from 'react';
 import { Button } from '@/shared/ui/Button/Button';
+
+const nodeTypes = { baseNode: BaseNode };
 
 export const Editor = () => {
   const dispatch = useDispatch();
   const nodes = useSelector(getNodes);
   const edges = useSelector(getEdges);
-
-  const nodeTypes = useMemo(() => ({ baseNode: BaseNode }), []);
 
   const onNodesChange: OnNodesChange = (changes) =>
     dispatch(changeNode(changes));
