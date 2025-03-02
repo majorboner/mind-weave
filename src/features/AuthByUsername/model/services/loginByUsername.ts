@@ -24,7 +24,7 @@ export const loginByUsername = createAsyncThunk<
 
     return response.data;
   } catch (error) {
-    console.error(error);
+    console.log(error);
     return rejectWithValue('Неверный логин или пароль');
   }
 });

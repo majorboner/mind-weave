@@ -1,5 +1,4 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from '@/widgets/counter';
 import editorReducer from '@/widgets/editor';
 import userReducer from '@/entities/User';
 import loginReducer from '@/features/AuthByUsername';
@@ -12,7 +11,6 @@ const extraArg: ThunkExtraArg = {
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
     editor: editorReducer,
     user: userReducer,
     loginForm: loginReducer,
