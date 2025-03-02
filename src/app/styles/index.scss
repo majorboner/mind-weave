@@ -1,3 +1,9 @@
 @use 'reset';
 @use 'global';
 @use 'fonts';
+@use 'themes/light.scss';
+
+#__next {
+  color: var(--text-color);
+  background: var(--bg-color);
+}
